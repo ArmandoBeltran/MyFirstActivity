@@ -15,6 +15,9 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.BaseAdapter
+import android.widget.CheckBox
+import android.widget.RadioButton
+import android.widget.RadioGroup
 
 class MyFirstActivity: Activity() {
     lateinit var contador : TextView
@@ -41,6 +44,10 @@ class MyFirstActivity: Activity() {
 
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, games)
         myListView.adapter = arrayAdapter**/
+        val btnPresionar = findViewById<Button>(R.id.btnAparece)
+        val checkButton = findViewById<CheckBox>(R.id.checkBoxButton)
+        val radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
+
         myListView = findViewById<ListView>(R.id.list_view)
         arrayList.add(MyData(1, "Sonic", 9.5f))
         arrayList.add(MyData(2, "Mario", 10.0f))
@@ -49,8 +56,36 @@ class MyFirstActivity: Activity() {
         myListView.adapter = adapter
 
 
+        btnPresionar.isEnabled = false
+
+        checkButton.setOnCheckedChangeListener {buttonView, isChecked ->
+            if (isChecked){
+                btnPresionar.isEnabled = true
+            }
+            else{
+                btnPresionar.isEnabled = false
+            }
+        }
+
+
+        btnPresionar.setOnClickListener { }
+
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId){
+                R.id.radioBtn1 -> {
+                    btnPresionar.isEnabled = true
+                }
+                R.id.radioBtn2 -> {
+                    btnPresionar.isEnabled = false
+                }
+                R.id.radioBtn3 -> btnPresionar.isEnabled = false
+                R.id.radioBtn4 -> btnPresionar.isEnabled = false
+            }
+        }
+
 
     }
+
 
     override fun onResume() {
         super.onResume()
